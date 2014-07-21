@@ -126,6 +126,11 @@ module Resque
 
         if @mailer_class.deliver?
           begin
+            puts "DEBUG:::: RESQUE MAILER"
+            puts "resque.enqueue(@mailer_class, @method_name, *@args)"
+            puts "@mailer_class => #{@mailer_class.inspect}"
+            puts "@method_name => #{@method_name.inspect}"
+            puts "@args => #{@args.inspect}"
             resque.enqueue(@mailer_class, @method_name, *@args)
           rescue Errno::ECONNREFUSED, Redis::CannotConnectError
             logger.error "Unable to connect to Redis; falling back to synchronous mail delivery" if logger
