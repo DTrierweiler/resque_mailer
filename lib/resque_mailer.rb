@@ -45,6 +45,9 @@ module Resque
 
       def perform(action, *args)
         begin
+          puts "DEBUG:::: PERFORM"
+          puts "action => #{action.inspect}"
+          puts "args => #{args.inspect}"
           message = self.send(:new, action, *args).message
           message.deliver
         rescue Exception => ex
